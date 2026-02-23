@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { dummyGenerations } from "../assets/assets"
 import type { Project } from "../types"
 import { Loader2 } from "lucide-react"
 import ProjectCard from "../components/ProjectCard"
@@ -48,7 +47,7 @@ const MyGenerations = () => {
         {/* generations list */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
           {generations.map((gen)=>(
-            <ProjectCard key={gen.id} gen={gen} setGenerations={setGenerations}/>
+            <ProjectCard key={gen.id} gen={gen} />
           ))}
         </div>
 

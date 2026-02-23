@@ -38,7 +38,7 @@ const Community = () => {
         {/* projects list */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
           {projects.map((project)=>(
-            <ProjectCard key={project.id} gen={project} setGenerations={setProjects} forCommunity={true}/>
+            <ProjectCard key={project.id} gen={project} forCommunity={true}/>
           ))}
         </div>
       </div>
