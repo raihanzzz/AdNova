@@ -1,0 +1,11 @@
+[
+  {
+    "id": "user_39y6inSwx353XQlhqjTIXrThI4p",
+    "email": "teacc0079@gmail.com",
+    "name": "Test Account",
+    "image": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18zOXk2aXFWMm53VVpIRWtrQzcwRWlxejhpV3oifQ",
+    "credits": 100,
+    "createdAt": "2026-02-21T06:41:38.572Z",
+    "updatedAt": "2026-02-21T06:51:52.050Z"
+  }
+]
