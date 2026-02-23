@@ -5,6 +5,7 @@ import { v2 as cloudinary } from 'cloudinary'
 import { GenerateContentConfig, HarmBlockThreshold, HarmCategory } from "@google/genai";
 import fs from 'fs';
 import path from "path";
+import os from "os";
 import ai from "../configs/ai.js";
 import axios from "axios";
 import { resolve } from "dns";
@@ -249,10 +250,10 @@ export const createVideo = async (req: Request, res: Response) => {
         }
 
         const filename = `${userId}-${Date.now()}.mp4`;
-        const filePath = path.join('videos', filename)
+        const filePath = path.join(os.tmpdir(), filename)
 
-        //create the image  directory  if it dosent exist
-        fs.mkdirSync('videos', { recursive: true })
+        // Ensure the temp directory exists (though /tmp usually does)
+        // fs.mkdirSync(os.tmpdir(), { recursive: true })
 
         if (!operation.response.generatedVideo) {
             throw new Error(operation.response.raiMediaFilteredReasons[0])
@@ -327,14 +328,14 @@ export const deleteProject = async (req: Request, res: Response) => {
         })
 
         if (!project) {
-            return res.status(404).json({message: 'Project not found'})
+            return res.status(404).json({ message: 'Project not found' })
         }
 
         await prisma.project.delete({
-            where: {id: projectId as string}
+            where: { id: projectId as string }
         })
 
-        res.json({message: 'Project deleted'});
+        res.json({ message: 'Project deleted' });
 
     } catch (error: any) {
         Sentry.captureException(error);

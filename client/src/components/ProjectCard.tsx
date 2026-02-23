@@ -10,15 +10,21 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { GhostButton, PrimaryButton } from "./Buttons";
+import { useAuth } from "@clerk/clerk-react";
+import api from "../configs/axios";
+import toast from "react-hot-toast";
 
 const ProjectCard = ({
   gen,
   forCommunity = false,
+  onUpdate,
 }: {
   gen: Project;
   forCommunity?: boolean;
+  onUpdate?: () => void;
 }) => {
   const navigate = useNavigate();
+  const { getToken } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleDelete = async (id: string) => {
@@ -26,11 +32,30 @@ const ProjectCard = ({
       `Are you sure you want to delete this project?`,
     );
     if (!confirm) return;
-    console.log(id);
+    
+    try {
+      const token = await getToken();
+      await api.delete(`/api/project/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success("Project deleted successfully");
+      if (onUpdate) onUpdate();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   const togglePublish = async (projectId: string) => {
-    console.log(projectId);
+    try {
+      const token = await getToken();
+      await api.get(`/api/user/publish/${projectId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success(gen.isPublished ? "Unpublished successfully" : "Published successfully");
+      if (onUpdate) onUpdate();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   return (

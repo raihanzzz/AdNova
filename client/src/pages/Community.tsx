@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import type { Project } from "../types"
-import { dummyGenerations } from "../assets/assets"
 import { Loader2 } from "lucide-react"
 import ProjectCard from "../components/ProjectCard"
+import api from "../configs/axios"
 
 
 const Community = () => {
@@ -11,10 +11,14 @@ const Community = () => {
   const [loading, setLoading] = useState(true)
 
   const fetchProjects = async ()=>{
-    setTimeout(()=>{
-      setProjects(dummyGenerations);
-      setLoading(false)
-    }, 3000)
+    try {
+      const { data } = await api.get('/api/project/published');
+      setProjects(data.projects);
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
 
