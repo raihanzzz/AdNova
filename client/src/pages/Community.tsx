@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react"
 import ProjectCard from "../components/ProjectCard"
 import api from "../configs/axios"
 import toast from "react-hot-toast"
+import { dummyGenerations } from "../assets/assets"
 
 
 const Community = () => {
@@ -14,8 +15,10 @@ const Community = () => {
   const fetchProjects = async ()=>{
     try {
       const { data } = await api.get('/api/project/published');
-      setProjects(data.projects);
+      const realProjects = data?.projects || [];
+      setProjects([...realProjects, ...dummyGenerations]);
     } catch (error) {
+      setProjects(dummyGenerations);
       const err = error as any;
       toast.error(err?.response?.data?.message || err.message);
     } finally {
