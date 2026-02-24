@@ -40,8 +40,9 @@ const ProjectCard = ({
       });
       toast.success("Project deleted successfully");
       if (onUpdate) onUpdate();
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || error.message);
+    } catch (error) {
+      const err = error as any;
+      toast.error(err?.response?.data?.message || err.message);
     }
   };
 
@@ -53,8 +54,9 @@ const ProjectCard = ({
       });
       toast.success(gen.isPublished ? "Unpublished successfully" : "Published successfully");
       if (onUpdate) onUpdate();
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || error.message);
+    } catch (error) {
+      const err = error as any;
+      toast.error(err?.response?.data?.message || err.message);
     }
   };
 

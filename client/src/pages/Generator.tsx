@@ -62,9 +62,10 @@ const Generator = () => {
         toast.success("Project created successfully!")
         navigate('/result/' + data.projectId)
 
-      } catch (error: any) {
+      } catch (error) {
         setIsGenerating(false);
-        toast.error(error?.response?.data?.message || error.message)
+        const err = error as any;
+        toast.error(err?.response?.data?.message || err.message)
       }
   };
 

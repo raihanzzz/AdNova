@@ -20,8 +20,9 @@ const MyGenerations = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGenerations(data.projects);
-      } catch (error: any) {
-        toast.error(error?.response?.data?.message || error.message);
+      } catch (error) {
+        const err = error as any;
+        toast.error(err?.response?.data?.message || err.message);
         console.log(error);
       } finally {
         setLoading(false);

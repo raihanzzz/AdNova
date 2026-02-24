@@ -27,8 +27,9 @@ const Result = () => {
       setProjectData(data.project)
       setIsGenerating(data.project.isGenerating)
       setLoading(false)
-    } catch (error:any) {
-      toast.error(error?.response?.data?.message || error.message)
+    } catch (error) {
+      const err = error as any;
+      toast.error(err?.response?.data?.message || err.message)
       console.log(error);
     }
   }
@@ -46,8 +47,9 @@ const Result = () => {
         toast.success(data.message)
         setIsGenerating(false);
 
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || error.message)
+    } catch (error) {
+      const err = error as any;
+      toast.error(err?.response?.data?.message || err.message)
       console.log(error);
     }
   }

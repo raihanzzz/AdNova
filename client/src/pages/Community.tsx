@@ -3,6 +3,7 @@ import type { Project } from "../types"
 import { Loader2 } from "lucide-react"
 import ProjectCard from "../components/ProjectCard"
 import api from "../configs/axios"
+import toast from "react-hot-toast"
 
 
 const Community = () => {
@@ -14,8 +15,9 @@ const Community = () => {
     try {
       const { data } = await api.get('/api/project/published');
       setProjects(data.projects);
-    } catch (error: any) {
-      console.log(error);
+    } catch (error) {
+      const err = error as any;
+      toast.error(err?.response?.data?.message || err.message);
     } finally {
       setLoading(false);
     }

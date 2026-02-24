@@ -34,8 +34,9 @@ export default function Navbar() {
                 {Authorization: `Bearer ${token}`}})
                 setCredits(data.credits)
             
-        } catch (error: any) {
-            toast.error(error?.response?.data?.message || error.message)
+        } catch (error) {
+            const err = error as any;
+            toast.error(err?.response?.data?.message || err.message)
             console.log(error);
         }
     }
